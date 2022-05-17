@@ -13,8 +13,6 @@
     <ItemGroup>
       <Folder Include="Learning\Controllers" />
       <Folder Include="Learning\Domain\Repositories" />
-      <Folder Include="Learning\Domain\Services" />
-      <Folder Include="Shared\Domain\Services\Communication" />
     </ItemGroup>
 
 </Project>
