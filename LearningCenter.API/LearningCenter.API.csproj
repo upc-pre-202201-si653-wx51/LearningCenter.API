@@ -8,7 +8,15 @@
 
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="11.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="1.1.6" />
+        <PackageReference Include="MySql.EntityFrameworkCore" Version="6.0.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Learning\Persistence\Repositories" />
     </ItemGroup>
 
 </Project>
