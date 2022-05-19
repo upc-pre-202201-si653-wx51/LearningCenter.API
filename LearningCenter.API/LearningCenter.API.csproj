@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Learning\Persistence\Repositories" />
+      <Folder Include="Learning\Services" />
     </ItemGroup>
 
 </Project>
