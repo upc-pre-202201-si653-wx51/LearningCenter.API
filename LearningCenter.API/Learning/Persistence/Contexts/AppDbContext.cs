@@ -8,7 +8,8 @@ public class AppDbContext : DbContext
 {
     
     public DbSet<Category> Categories { get; set; }
-    
+    public DbSet<Tutorial> Tutorials { get; set; }
+
     public AppDbContext(DbContextOptions options) : base(options)
     {
     }
