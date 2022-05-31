@@ -76,4 +76,5 @@ public class CategoriesController : ControllerBase
 
         return Ok(categoryResource);
     }
+    
 }

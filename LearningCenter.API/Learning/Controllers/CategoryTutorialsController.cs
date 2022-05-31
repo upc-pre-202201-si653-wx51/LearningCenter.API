@@ -7,28 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 namespace LearningCenter.API.Learning.Controllers;
 
 [ApiController]
-[Route("/api/v1/[controller]")]
-public class TutorialsController : ControllerBase
+[Route("/api/v1/categories/{categoryId}/tutorials")]
+public class CategoryTutorialsController : ControllerBase
 {
     private readonly ITutorialService _tutorialService;
     private readonly IMapper _mapper;
 
-    public TutorialsController(ITutorialService tutorialService, IMapper mapper)
+    public CategoryTutorialsController(ITutorialService tutorialService, IMapper mapper)
     {
         _tutorialService = tutorialService;
         _mapper = mapper;
     }
 
     [HttpGet]
-    public async Task<IEnumerable<TutorialResource>> GetAllAsync()
+    public async Task<IEnumerable<TutorialResource>> GetAllByCategoryIdAsync(int categoryId)
     {
-        var tutorials = await _tutorialService.ListAsync();
+        var tutorials = await _tutorialService.ListByCategoryIdAsync(categoryId);
+
         var resources = _mapper.Map<IEnumerable<Tutorial>, IEnumerable<TutorialResource>>(tutorials);
 
         return resources;
-
     }
-    
-    
-    
 }
