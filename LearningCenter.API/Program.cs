@@ -79,7 +79,11 @@ using (var context = scope.ServiceProvider.GetService<AppDbContext>())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+        {
+         options.SwaggerEndpoint("v1/swagger.json", "v1");
+         options.RoutePrefix = "swagger";
+        });
 }
 
 app.UseHttpsRedirection();
