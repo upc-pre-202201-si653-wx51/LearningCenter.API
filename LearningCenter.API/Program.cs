@@ -1,9 +1,11 @@
 using LearningCenter.API.Learning.Domain.Repositories;
 using LearningCenter.API.Learning.Domain.Services;
 using LearningCenter.API.Learning.Mapping;
-using LearningCenter.API.Learning.Persistence.Contexts;
 using LearningCenter.API.Learning.Persistence.Repositories;
 using LearningCenter.API.Learning.Services;
+using LearningCenter.API.Shared.Domain.Repositories;
+using LearningCenter.API.Shared.Persistence.Contexts;
+using LearningCenter.API.Shared.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 

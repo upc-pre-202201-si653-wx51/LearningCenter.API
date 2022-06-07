@@ -17,4 +17,8 @@
         <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Learning\Persistence\Contexts" />
+    </ItemGroup>
+
 </Project>

@@ -2,7 +2,7 @@ using LearningCenter.API.Learning.Domain.Models;
 using LearningCenter.API.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearningCenter.API.Learning.Persistence.Contexts;
+namespace LearningCenter.API.Shared.Persistence.Contexts;
 
 public class AppDbContext : DbContext
 {

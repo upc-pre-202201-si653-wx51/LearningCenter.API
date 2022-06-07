@@ -1,4 +1,4 @@
-namespace LearningCenter.API.Learning.Domain.Repositories;
+namespace LearningCenter.API.Shared.Domain.Repositories;
 
 public interface IUnitOfWork
 {
