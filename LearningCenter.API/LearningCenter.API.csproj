@@ -22,6 +22,14 @@
 
     <ItemGroup>
       <Folder Include="Learning\Persistence\Contexts" />
+      <Folder Include="Security\Authorization" />
+      <Folder Include="Security\Controllers" />
+      <Folder Include="Security\Domain\Services\Communication" />
+      <Folder Include="Security\Exceptions" />
+      <Folder Include="Security\Mapping" />
+      <Folder Include="Security\Persistence" />
+      <Folder Include="Security\Resources" />
+      <Folder Include="Security\Services" />
     </ItemGroup>
 
 </Project>
