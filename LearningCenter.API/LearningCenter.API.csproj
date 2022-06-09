@@ -25,7 +25,6 @@
       <Folder Include="Security\Authorization" />
       <Folder Include="Security\Controllers" />
       <Folder Include="Security\Exceptions" />
-      <Folder Include="Security\Persistence" />
       <Folder Include="Security\Services" />
     </ItemGroup>
 

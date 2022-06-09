@@ -1,4 +1,5 @@
 using LearningCenter.API.Learning.Domain.Models;
+using LearningCenter.API.Security.Domain.Models;
 using LearningCenter.API.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,8 @@ public class AppDbContext : DbContext
     
     public DbSet<Category> Categories { get; set; }
     public DbSet<Tutorial> Tutorials { get; set; }
+    
+    public DbSet<User> Users { get; set; }
 
     public AppDbContext(DbContextOptions options) : base(options)
     {
