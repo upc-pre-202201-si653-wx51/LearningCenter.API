@@ -39,6 +39,16 @@ public class AppDbContext : DbContext
         builder.Entity<Tutorial>().Property(p => p.Title).IsRequired().HasMaxLength(50);
         builder.Entity<Tutorial>().Property(p => p.Description).HasMaxLength(120);
         
+        // Users
+        
+        // Constraints
+
+        builder.Entity<User>().ToTable("Users");
+        builder.Entity<User>().HasKey(p => p.Id);
+        builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<User>().Property(p => p.Username).IsRequired().HasMaxLength(30);
+        builder.Entity<User>().Property(p => p.FirstName).IsRequired();
+        builder.Entity<User>().Property(p => p.LastName).IsRequired();
         
         // Apply Snake Case Naming Convention
         
