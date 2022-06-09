@@ -1,6 +1,5 @@
 using LearningCenter.API.Learning.Domain.Repositories;
 using LearningCenter.API.Learning.Domain.Services;
-using LearningCenter.API.Learning.Mapping;
 using LearningCenter.API.Learning.Persistence.Repositories;
 using LearningCenter.API.Learning.Services;
 using LearningCenter.API.Shared.Domain.Repositories;
@@ -64,8 +63,10 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // AutoMapper Configuration
 
 builder.Services.AddAutoMapper(
-    typeof(ModelToResourceProfile), 
-    typeof(ResourceToModelProfile));
+    typeof(LearningCenter.API.Learning.Mapping.ModelToResourceProfile), 
+    typeof(LearningCenter.API.Learning.Mapping.ResourceToModelProfile),
+    typeof(LearningCenter.API.Security.Mapping.ModelToResourceProfile), 
+    typeof(LearningCenter.API.Security.Mapping.ResourceToModelProfile));
 
 var app = builder.Build();
 
