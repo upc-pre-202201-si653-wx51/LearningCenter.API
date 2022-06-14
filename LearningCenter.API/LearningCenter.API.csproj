@@ -22,7 +22,6 @@
 
     <ItemGroup>
       <Folder Include="Learning\Persistence\Contexts" />
-      <Folder Include="Security\Authorization\Attributes" />
       <Folder Include="Security\Authorization\Middleware" />
       <Folder Include="Security\Controllers" />
       <Folder Include="Security\Services" />
