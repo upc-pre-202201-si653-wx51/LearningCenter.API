@@ -50,28 +50,90 @@ public class UserService : IUserService
         return response;
     }
 
-    public Task<IEnumerable<User>> ListAsync()
+    public async Task<IEnumerable<User>> ListAsync()
     {
-        throw new NotImplementedException();
+        return await _userRepository.ListAsync();
     }
 
-    public Task<User> GetByIdAsync(int id)
+    public async Task<User> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.FindByIdAsync(id);
+        if (user == null) throw new KeyNotFoundException("User not found");
+        return user;
     }
 
-    public Task RegisterAsync(RegisterRequest request)
+    public async Task RegisterAsync(RegisterRequest request)
     {
-        throw new NotImplementedException();
+        // Validate 
+        if (_userRepository.ExistsByUsername(request.Username))
+            throw new AppException($"Username '{request.Username}' is already taken");
+        
+        // Map Request to User Entity
+        var user = _mapper.Map<User>(request);
+        
+        // Hash Password
+        user.PasswordHash = BCryptNet.HashPassword(request.Password);
+        
+        // Save User
+
+        try
+        {
+            await _userRepository.AddAsync(user);
+            await _unitOfWork.CompleteAsync();
+        }
+        catch (Exception e)
+        {
+            throw new AppException($"An error occurred while saving the user: {e.Message}");
+        }
     }
 
-    public Task UpdateAsync(int id, UpdateRequest request)
+    public async Task UpdateAsync(int id, UpdateRequest request)
     {
-        throw new NotImplementedException();
+        var user = GetById(id);
+        
+        // Validate
+        var userWithUsername = await _userRepository.FindByUsernameAsync(request.Username); 
+        if ( userWithUsername != null && userWithUsername.Id != user.Id)
+            throw new AppException($"Username '{request.Username}' is already taken");
+        
+        // Hash Password if it was entered
+        if (!string.IsNullOrEmpty(request.Password))
+            user.PasswordHash = BCryptNet.HashPassword(request.Password);
+        
+        // Map Request to User Entity
+        _mapper.Map(request, user);
+        try
+        {
+            _userRepository.Update(user);
+            await _unitOfWork.CompleteAsync();
+        }
+        catch (Exception e)
+        {
+            throw new AppException($"An error occurred while updating the user: {e.Message}");
+        }
+
     }
 
-    public Task DeleteAsync(int id)
+    public async Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var user = GetById(id);
+        try
+        {
+            _userRepository.Remove(user);
+            await _unitOfWork.CompleteAsync();
+        }
+        catch (Exception e)
+        {
+            throw new AppException($"An error occurred while deleting the user: {e.Message}");
+        }
+    }
+    
+    // Helper Methods
+
+    private User GetById(int id)
+    {
+        var user = _userRepository.FindById(id);
+        if (user == null) throw new KeyNotFoundException("User not found");
+        return user;
     }
 }
