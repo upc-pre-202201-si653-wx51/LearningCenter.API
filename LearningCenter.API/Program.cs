@@ -53,6 +53,24 @@ builder.Services.AddSwaggerGen(options =>
          }
      });
      options.EnableAnnotations();
+     options.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
+     {
+         Type = SecuritySchemeType.Http,
+         Scheme = "bearer",
+         BearerFormat = "JWT",
+         Description = "JWT Authorization header using the Bearer scheme."
+     });
+     
+     options.AddSecurityRequirement(new OpenApiSecurityRequirement
+     {
+         {
+             new OpenApiSecurityScheme
+             {
+                 Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "bearerAuth" }
+             },
+             Array.Empty<string>()
+         }
+     });
     });
 
 // Add Database Connection
