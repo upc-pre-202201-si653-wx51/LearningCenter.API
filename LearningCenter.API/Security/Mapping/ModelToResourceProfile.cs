@@ -9,7 +9,7 @@ public class ModelToResourceProfile : Profile
 {
     public ModelToResourceProfile()
     {
-        CreateMap<User, AuthenticateRequest>();
+        CreateMap<User, AuthenticateResponse>();
         CreateMap<User, UserResource>();
     }
 }
