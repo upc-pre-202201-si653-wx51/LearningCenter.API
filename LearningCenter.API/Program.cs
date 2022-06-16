@@ -2,6 +2,14 @@ using LearningCenter.API.Learning.Domain.Repositories;
 using LearningCenter.API.Learning.Domain.Services;
 using LearningCenter.API.Learning.Persistence.Repositories;
 using LearningCenter.API.Learning.Services;
+using LearningCenter.API.Security.Authorization.Handlers.Implementations;
+using LearningCenter.API.Security.Authorization.Handlers.Interfaces;
+using LearningCenter.API.Security.Authorization.Middleware;
+using LearningCenter.API.Security.Authorization.Settings;
+using LearningCenter.API.Security.Domain.Repositories;
+using LearningCenter.API.Security.Domain.Services;
+using LearningCenter.API.Security.Persistence.Repositories;
+using LearningCenter.API.Security.Services;
 using LearningCenter.API.Shared.Domain.Repositories;
 using LearningCenter.API.Shared.Persistence.Contexts;
 using LearningCenter.API.Shared.Persistence.Repositories;
@@ -13,8 +21,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+// Add CORS Service
+builder.Services.AddCors();
+
+// AppSettings Configuration
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
+
 builder.Services.AddSwaggerGen(options =>
     {
      // Add API Documentation Information
@@ -54,11 +71,21 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 // Dependency Injection Configuration
 
+// Shared Injection Configuration
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+// Learning Injection Configuration
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ITutorialRepository, TutorialRepository>();
 builder.Services.AddScoped<ITutorialService, TutorialService>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Security Injection Configuration
+builder.Services.AddScoped<IJwtHandler, JwtHandler>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 // AutoMapper Configuration
 
@@ -88,6 +115,21 @@ if (app.Environment.IsDevelopment())
          options.RoutePrefix = "swagger";
         });
 }
+
+
+// Configure CORS
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+// Middleware Services Configuration
+
+// Configure Error Handler Middleware
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
+// Configure JSON Web Token Handling Middleware
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
 
